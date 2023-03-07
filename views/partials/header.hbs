@@ -1,0 +1,27 @@
+<section class="head">
+            <ul id="navbar"> 
+                <div id="navleft" style="display: flex;position: absolute; left: 2px;">
+                    <a href="#"><img id="logo" src="#" alt="" class="logo"></a>
+                    <li><a href="/main">Music</a></li>
+                    <li><a href="/playlist">My Playlist</a></li>
+                     <li><a id="getlikes">LikedOne</a></li>
+                    {{!-- <li><a href="#">{{username}}</a></li> --}}
+                    
+                </div>
+                
+                <div class="sbar">
+                    <input type="search" placeholder="Search" aria-label="Search">
+                    <li><button>Search</button></li>
+                </div>
+                
+                <div id="navright" style="display: flex;position: absolute; right: 2px;">
+                   {{#if flag }}
+                    <li><a href="/login" id="user">Login</a></li>
+                    <li><a href="/signup">Sign Up</a></li>
+                    {{else}}
+                    <i class="bi bi-person-circle" onclick="window.location='./login'""></i>
+                    <li><a href="/login" id="user">{{username}}</a></li>
+                  {{/if}}
+                </div>
+            </ul>   
+        </section>

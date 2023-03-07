@@ -1,0 +1,36 @@
+.container{
+    margin-top: 130px;
+    background-color:darkblue;
+    /* background-image: linear-gradient(to right top, #b7f2b5, #e6da87, #ffb982, #ff9aa9, #fb92e5); */
+    border-radius: 10px;
+}
+
+.row{
+    margin-top: 15px;
+}
+
+.wrong{
+    color: red;
+     margin:10px;
+     font-size: medium;
+     display: block;
+}
+.updated{
+    color: green;
+    margin:10px;
+    font-size: 25px;
+    display: block;
+}
+#loginbtn{
+    background-color: green;
+   
+    font-size: 25px;
+}
+#alogin{
+    color: #fff;
+    font-style: oblique;
+}
+#stxt{
+    color: darkblue;
+    font-style: italic;
+}

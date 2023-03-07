@@ -1,0 +1,74 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<link rel="stylesheet" href="forgot.css">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+ <div class="form-gap"></div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div class="text-center">
+                  <h3><i class="fa fa-lock fa-4x"></i></h3>
+                  {{#if flag}}
+                  <h2 class="updated">{{updated}}</h2>
+                  {{else}}
+
+                  <h2 class="text-center">Forgot Password?</h2>
+                  <p>You can reset your password here.</p>
+                  <p class="wrong">{{info}}</p>
+                   <div class="panel-body">
+    
+                    <form id="register-form" role="form" autocomplete="off" class="form" method="post">
+    
+                      <div class="form-group">
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
+                          <input id="email" name="email" placeholder="email address" class="form-control"  type="email">
+                          
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock fa-1.75x"></i></span>
+                            <input id="password" name="password" placeholder="password" class="form-control"  type="password">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock fa-1.75x"></i></span>
+                            <input id="cpassword" name="cpassword" placeholder="confirmpassword" class="form-control"  type="password">
+                        </div>
+                       
+                      </div>
+                  {{/if}}
+                  
+                 
+                         {{#if flag}}
+                          <div class="form-group">
+                            <p id="stxt">You can Login Now.Password has been sended to your e-mail address</p>
+                                 {{!-- <button class="google"><i class="bi bi-google" style="margin-right:6px ;" ></i><a href="/login">Sign up with Google</a></button> --}}
+                            <button id="loginbtn"><a id="alogin" href="/login">Login</a></button>
+                        {{!-- <input  href="/login" name="recover-submit" id="loginbtn" class="btn btn-lg btn-primary btn-block" value="Now Login" type="submit"> --}}
+                      </div>
+                          {{else}}
+                      <div class="form-group">
+                        <input name="recover-submit" class="btn btn-lg btn-primary btn-block" value="Reset Password" type="submit">
+                      </div>
+
+                   {{/if}}
+                      {{!-- <a class="btn btn-primary" href="#" role="button">{{link}}</a> --}}
+                      {{!-- <button onclick="window.location='/login'" class="loginbtn">{{link}}</button> --}}
+                     
+                      
+                      <input type="hidden" class="hide" name="token" id="token" value=""> 
+                    </form>
+    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+	</div>
+</div>
+<script>
+
+</script>

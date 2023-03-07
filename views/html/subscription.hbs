@@ -1,0 +1,65 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="./sign.css">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>Log in</title>
+</head>
+<body>
+    <div class="main">
+        <div class="subscribediv">
+            
+                <label class="title" for="Subscribe">Subscribe</label>
+                
+                <div class="content">
+                   <p id="subcribecont">Subscription plan start at just ₹300 and you get access to download unlimited songs</p>
+                    <div class="submitbtn">
+                        <button id="pay-button">Subscribe</button>
+                    </div>
+                </div>
+           </div> 
+        
+    </div>
+    <script>
+        let btn=document.getElementById('pay-button');
+        btn.addEventListener('click', async function(e){
+          var order;
+        await axios.get('/createorder').then((res)=>{
+          order=res.data.order.id;
+          console.log(order)
+     })
+        var options = {
+    "key": "rzp_test_1a29ysZKRKnlkl",
+    "amount": "30000",
+    "currency": "INR",
+    "name": "Musixon",
+    "description": "Subscription For Musixon",
+    "image": "data:image/png;base64,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",
+    "order_id":order , 
+    "callback_url": "http://localhost:3000/checkout",
+    "prefill": {
+        "name": "Musixon",
+        "email": "musixon@example.com",
+        "contact": "9999999999"
+    },
+    "notes": {
+        "address": "Ground floor"
+    },
+    "theme": {
+        "color": "#000000"
+    },
+    "animation":"true"
+};
+var rzp1 = new Razorpay(options);
+    rzp1.open();
+})
+    </script>
+</body>
+</html>
