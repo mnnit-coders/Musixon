@@ -1,4 +1,4 @@
-var download_song='Deva Deva';
+var download_song='https://aac.saavncdn.com/871/0bed32d7b2c9eb71e4f4d76285e85909_320.mp4';
 import { playTrack,addPlaylistInQueue} from '../js/player.js';
 
 let cnt=0;
@@ -16,67 +16,68 @@ let toptelugu;
 let krishnasongs;
 let englishsongs;
 let sadsongs;
-
-    await axios.get(`https://saavn.me/playlists?id=848372055`).then(function (response) {
+let BASE_URL="https://saavnapi-nine.vercel.app/playlist/?query=";
+let SONG_BASE_URL="https://saavnapi-nine.vercel.app/song/?query";
+    await axios.get(`${BASE_URL}https://www.jiosaavn.com/featured/non-stop-party/FPfWwWPUJ5I_`).then(function (response) {
       console.log(response.data);
       cnt++;
-      trendingnow=response.data.data.songs;
+      trendingnow=response.data.songs;
     }).catch(function (error) {
       console.log(error);
     });
 
-    await axios.get(`https://saavn.me/playlists?id=6689255`).then(function (response) {
+    await axios.get(`${BASE_URL}https://www.jiosaavn.com/featured/jhakaas-remakes/7e2LtwVBX6JFo9wdEAzFBA__`).then(function (response) {
         console.log(response.data);cnt++;
-        newrelease=response.data.data.songs;
+        newrelease=response.data.songs;
       }).catch(function (error) {
         console.log(error);
       });
 
-    await axios.get(`https://saavn.me/playlists?id=903166403`).then(function (response) {
+    await axios.get(`${BASE_URL}https://www.jiosaavn.com/featured/monsoon-lofi-beats/68cGlQtgV9-b5bdQKACHDA__`).then(function (response) {
       console.log(response.data);cnt++;
-      bestofromance=response.data.data.songs;
+      bestofromance=response.data.songs;
     }).catch(function (error) {
       console.log(error);
     });
-    await axios.get(`https://saavn.me/playlists?id=79653434`).then(function (response) {
+    await axios.get(`${BASE_URL}https://www.jiosaavn.com/featured/dance-hits-2024-hindi/f2H4t,SV8Wf5me0dITeP4w__`).then(function (response) {
       console.log(response.data);cnt++;
-      bestofdance=response.data.data.songs;
+      bestofdance=response.data.songs;
     }).catch(function (error) {
       console.log(error);
     });
-    await axios.get(`https://saavn.me/playlists?id=1039423791`).then(function (response) {
+    await axios.get(`${BASE_URL}https://www.jiosaavn.com/featured/english-hit-songs/nrvUV5Tqghv9wIHXZ0JrGQ__`).then(function (response) {
       console.log(response.data);cnt++;
-      englishsongs=response.data.data.songs;
+      englishsongs=response.data.songs;
     }).catch(function (error) {
       console.log(error);
     });
-    await axios.get(`https://saavn.me/playlists?id=848372061`).then(function (response) {
+    await axios.get(`${BASE_URL}https://www.jiosaavn.com/featured/best-of-hip-hop-punjabi/RyrPgTZDukhuOxiEGmm6lQ__`).then(function (response) {
       console.log(response.data);cnt++;
-      punjabisongs=response.data.data.songs;
+      punjabisongs=response.data.songs;
     }).catch(function (error) {
       console.log(error);
     });
-    await axios.get(`https://saavn.me/playlists?id=848372057`).then(function (response) {
+    await axios.get(`${BASE_URL}https://www.jiosaavn.com/featured/house-party-tamil/,9s3E3l5o0lFo9wdEAzFBA__`).then(function (response) {
       console.log(response.data);cnt++;
-      toptamil=response.data.data.songs;
+      toptamil=response.data.songs;
     }).catch(function (error) {
       console.log(error);
     });
-    await axios.get(`https://saavn.me/playlists?id=848372058`).then(function (response) {
+    await axios.get(`${BASE_URL}https://www.jiosaavn.com/featured/house-party-telugu/YWsQ67Dp7qDc1EngHtQQ2g__`).then(function (response) {
       console.log(response.data);cnt++;
-      toptelugu=response.data.data.songs;
+      toptelugu=response.data.songs;
     }).catch(function (error) {
       console.log(error);
     });
-    await axios.get(`https://saavn.me/playlists?id=83439798`).then(function (response) {
+    await axios.get(`${BASE_URL}https://www.jiosaavn.com/featured/krishna-special/,2PuDZJtVrWN8OQeUngFdA__`).then(function (response) {
       console.log(response.data);cnt++;
-      krishnasongs=response.data.data.songs;
+      krishnasongs=response.data.songs;
     }).catch(function (error) {
       console.log(error);
     });
-    await axios.get(`https://saavn.me/playlists?id=802336660`).then(function (response) {
+    await axios.get(`${BASE_URL}https://www.jiosaavn.com/featured/best-of-sad-songs-hindi/WjjhR,A3iLLuCJW60TJk1Q__`).then(function (response) {
       console.log(response.data);cnt++;
-      sadsongs=response.data.data.songs;
+      sadsongs=response.data.songs;
     }).catch(function (error) {
       console.log(error);
     });
@@ -123,10 +124,52 @@ let sadSongs = [...sadsongs];
 contentArray.push(sadSongs);
 contentArrayName.push("Sad songs");
 
-console.log(contentArray);
+console.log("rahul--"+contentArray.length); 
 
+for(let i=0;i<contentArray.length;i++){
+    for(let j=0;j<contentArray[i].length;j++){
+        contentArray[i][j].url=contentArray[i][j].perma_url;
+    }
+}
 let content = document.getElementsByClassName('content')[0];
 console.log(contentArrayName);
+// for(let i=0;i<contentArray.length;i++){
+//     content.innerHTML+=`<div class="list" id="list0${i}">
+//                     <i class="bi bi-chevron-left"></i>
+//                     <h3>${contentArrayName[i]} <button class="playall" id="${i}">Play</button> </h3>
+                    
+//                     <div class="songs"> 
+//                     </div>
+//                         <i class="bi bi-chevron-right"></i>
+//                 </div>`
+    
+//                 let tar = document.getElementsByClassName('songs')[i];
+//                 let limit = 40;
+//     if(contentArray[i].length < 40) limit = contentArray[i].length;
+//     for (let j = 0; j < limit; j++) {
+        
+//         tar.innerHTML += `<li class="song" >
+//         <div class="image_play">
+//             <img src="${contentArray[i][j].image[2].link}" alt="">
+//             <img class="play_icon" id="${contentArray[i][j].url}" src="../images/play.svg" alt="">
+//             <i class="like_icon bi bi-heart" id="${contentArray[i][j].url}"></i>
+//             <i class="bi bi-hearts"></i>
+//             <i class="bi bi-plus-circle" id="${contentArray[i][j].url}"></i>
+//             <ul class="add_menu hide" >
+            
+//              <li  class="newplaylist" id="${contentArray[i][j].url}">New playlist</li>
+//              <li class="existone" id="${contentArray[i][j].url}">Existing playlist</li>
+             
+//             </ul>
+//         </div>      
+//         <div>
+//             <h5 style="font-size:15px;" >${contentArray[i][j].name}</h5>
+//             <h5>${contentArray[i][j].primaryArtists}</h5>
+//         </div>
+        
+//     </li>`
+//     }
+// }
 for(let i=0;i<contentArray.length;i++){
     content.innerHTML+=`<div class="list" id="list0${i}">
                     <i class="bi bi-chevron-left"></i>
@@ -140,11 +183,18 @@ for(let i=0;i<contentArray.length;i++){
                 let tar = document.getElementsByClassName('songs')[i];
                 let limit = 40;
     if(contentArray[i].length < 40) limit = contentArray[i].length;
+    
     for (let j = 0; j < limit; j++) {
+        console.log(contentArray[i][j]);
         
+
+        let songUrl=contentArray[i][j].perma_url;
+        let imgUrl=contentArray[i][j].image;
+        let artist=contentArray[i][j].primary_artists;
+        let songName=contentArray[i][j].song;
         tar.innerHTML += `<li class="song" >
         <div class="image_play">
-            <img src="${contentArray[i][j].image[2].link}" alt="">
+            <img src="${imgUrl}" alt="">
             <img class="play_icon" id="${contentArray[i][j].url}" src="../images/play.svg" alt="">
             <i class="like_icon bi bi-heart" id="${contentArray[i][j].url}"></i>
             <i class="bi bi-hearts"></i>
@@ -157,14 +207,13 @@ for(let i=0;i<contentArray.length;i++){
             </ul>
         </div>      
         <div>
-            <h5 style="font-size:15px;" >${contentArray[i][j].name}</h5>
-            <h5>${contentArray[i][j].primaryArtists}</h5>
+            <h5 style="font-size:15px;" >${songName}</h5>
+            <h5>${artist}</h5>
         </div>
         
     </li>`
     }
 }
-
 if(cnt==contentArray.length){
     
     console.log('done');
@@ -178,6 +227,11 @@ var like_icon =Array.from(document.getElementsByClassName('like_icon'));
 var plus_icon =Array.from(document.getElementsByClassName('plus_icon'));
 
 let downloadbtn=document.getElementById('downloadbtn');
+// let downloadbtn1=document.getElementById('downloadbtn2');
+
+// downloadbtn1.addEventListener('click',()=>{
+//     downloadbtn1.href="https://aac.saavncdn.com/138/25f8aa80e4d69e9d017c43b8b7e989a3_320.mp4"
+// })
 // let menu_icon = document.getElementById('menu_icon');
 // let playerMenu = document.getElementsByClassName('player_menu')[0];
 
@@ -443,43 +497,17 @@ downloadbtn.addEventListener('click', async ()=>{
             console.log(res.data)
             if(res.data==true){
 
-                const options = {
-                    method: 'GET',
-                    url: 'https://youtube-music1.p.rapidapi.com/v2/search',
-                    params: {query: download_song},
-                    headers: {
-                      'X-RapidAPI-Key': '6a470279c7mshc24e7631ba39188p13309ajsna8c3e521439b',
-                      'X-RapidAPI-Host': 'youtube-music1.p.rapidapi.com'
-                    }
-                  };
-                   var download_id;
-                   await axios.request(options).then(function (response) {
-                      // console.log(response.data.result.songs[0].id)
-                      // console.log(response.result.songs[0].id)
-                      download_id=response.data.result.songs[0].id;
-                      console.log(download_id);
-                  }).catch(function (error) {
-                     swal(error.message)
-                  });
-                  
-                  const options1 = {
-                      method: 'GET',
-                      url: 'https://youtube-music1.p.rapidapi.com/get_download_url',
-                      params: {id:download_id, ext: 'mp3'},
-                      headers: {
-                        'X-RapidAPI-Key': '6a470279c7mshc24e7631ba39188p13309ajsna8c3e521439b',
-                        'X-RapidAPI-Host': 'youtube-music1.p.rapidapi.com'
-                      }
-                    };
-                    var download_url;
-                    await axios.request(options1).then(function (response) {
-                      // console.log(response.data.result.download_url);
-                        download_url=response.data.result.download_url;
-                        window.open(download_url)
-                        console.log(download_url)
-                    }).catch(function (error) {
-                        console.error(error);
-                    });
+                var response=await axios.get(`${SONG_BASE_URL}=${download_song}`);
+                response=response.data;
+                console.log(response);
+                const a = document.createElement('a');
+                a.href = response.media_url;
+                a.download = response.media_url;
+                a.style.display = 'none'; // Hide the element
+                a.target = '_blank'; // Prevent new tabs opening
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
             }
             else{
              fun("");
@@ -580,7 +608,7 @@ function fun1(s){
 
 let subscribebtn=document.getElementById('subscribebtn');
 subscribebtn.addEventListener('click',()=>{
-    window.open('http://localhost:3000/payment')
+    window.open('https://musixon-aisy.onrender.com/payment')
 })
 
 

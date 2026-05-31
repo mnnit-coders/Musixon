@@ -14,7 +14,7 @@ const googlestrategy=require('passport-google-oauth20')
 const expresssession=require('express-session')
 const hbs=require('hbs')
 const Razorpay=require('razorpay');
-require('dotenv').config()
+require('dotenv').config();
 const app = express()
 app.use(express.json());
 app.use(express.static(path.join(__dirname,'../views')));
@@ -23,6 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser());
 app.listen(3000);
 var {protectroute,authprotect}=require('../middlewares/protectroute')
+const router=require('./save')
 const jwt_key=process.env.jwt_key
 app.set('view engine','hbs');
 const hbs_url=path.join(__dirname,'../views/html')
@@ -42,6 +43,7 @@ var googlelogindata={
 const forgetroute=require('./forgotpassword')
 app.use('/forgotpassword',forgetroute);
 
+app.use('/',router)
 
 // logout route--------------->>>
 const logoutroute=require('./logout');
@@ -285,7 +287,7 @@ async function logindata(req,res,next){
          let u_id=data['_id'];
        var token=jwt.sign({payload:u_id},jwt_key);
         res.cookie('login',token,{maxAge:10000000,secure:true,httpOnly:true});
-        res.redirect('/main');
+        res.redirect('/');
        
      }
      else{
@@ -327,7 +329,7 @@ else{
 
 
 const temps=express.Router();
-app.use('/main',temps)
+app.use('/',temps)
 temps
 .route('/')
 .get(protectroute,gettemp)
@@ -427,7 +429,7 @@ try {
             if(googledata_db!=null&&googledata_db.flag==true){
                 let token=jwt.sign({payload:googledata_db.id},jwt_key);
                 res.cookie('login',token,{maxAge:10000000,secure:true,httpOnly:true});
-                res.redirect('/main')
+                res.redirect('/')
             }
             else if(googledata_db!=null&&googledata_db.flag==false){
                 res.redirect('/alreadyexist')
@@ -438,7 +440,7 @@ try {
                 const googledata=await usermodel.create(google_userdata);
                 let token=jwt.sign({payload:googledata.id},jwt_key);
                 res.cookie('login',token,{maxAge:10000000,secure:true,httpOnly:true});
-                res.redirect('/main')
+                res.redirect('/')
             }
                 } catch (error) {
                 res.render('error',{

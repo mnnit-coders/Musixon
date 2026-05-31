@@ -179,17 +179,20 @@ export async function addPlaylistInQueue(array){
         // console.log(queueArray);
         queueArray.push(array[i].url);
 
-
+        let songUrl=array[i].perma_url;
+        let imgUrl=array[i].image;
+        let artist=array[i].primary_artists;
+        let songName=array[i].song;
         console.log('added ' + i);
         
         queue.innerHTML+=`<li class="songinqueue" id="${array[i].url}">
             <div class="image_play">
-            <img src=${array[i].image[2].link} alt="">
+            <img src=${array[i].image} alt="">
             <img class="queue_play_icon" id="${array[i].url}" src="../images/play.svg" alt="">
             </div>
         <div>
-            <h4>${array[i].name}</h4>
-            <h5>${array[i].primaryArtists}</h5>
+            <h4>${songName}</h4>
+            <h5>${artist}</h5>
         </div>
         <i class="bi bi-dash-circle" id="${array[i].url}"></i>
         </li>`

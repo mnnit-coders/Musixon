@@ -10,7 +10,7 @@ app.get('/',(req,res)=>{
     res.clearCookie('login');
     res.clearCookie('helo');
     res.clearCookie('hello');
-    res.redirect('/main');
+    res.redirect('/');
 })
 
 module.exports=app;
