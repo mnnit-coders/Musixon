@@ -500,19 +500,36 @@ downloadbtn.addEventListener('click', async ()=>{
                 var response=await axios.get(`${SONG_BASE_URL}=${download_song}`);
                 response=response.data;
                 console.log(response);
+                // const a = document.createElement('a');
+                // a.href = response.media_url;
+                // a.download = response.media_url;
+                // a.style.display = 'none'; // Hide the element
+                // a.target = '_blank'; // Prevent new tabs opening
+                // document.body.appendChild(a);
+                // a.click();
+                // document.body.removeChild(a);
+
+
+                const response2 = await axios.get(response.media_url, {
+                    responseType: 'blob'
+                });
+
+                const blob = new Blob([response2.data], { type: 'audio/mp4' });
+                const url = window.URL.createObjectURL(blob);
+
                 const a = document.createElement('a');
-                a.href = response.media_url;
-                a.download = response.media_url;
-                a.style.display = 'none'; // Hide the element
-                a.target = '_blank'; // Prevent new tabs opening
+                a.href = url;
+                a.download = `${response.song}.mp4`; 
                 document.body.appendChild(a);
                 a.click();
+
+                window.URL.revokeObjectURL(url);
                 document.body.removeChild(a);
             }
             else{
              fun("");
-             closePopup('playlistname');
-            closePopup('existingplaylist');
+              closePopup('playlistname');
+              closePopup('existingplaylist');
             }
           })
          
