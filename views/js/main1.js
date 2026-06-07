@@ -21,6 +21,11 @@ var sadsongs;
 var BASE_URL="https://saavnapi-nine.vercel.app/playlist/?query=";
 var SONG_BASE_URL="https://saavnapi-nine.vercel.app/song/?query";
 
+
+function setLocalStorageTime() {
+  localStorage.setItem('timeSet', new Date().getTime().toString());
+  console.log('TimeSet updated:', new Date().toLocaleString());
+}
 // Load playlists only if first time or after 3 days
 async function loadPlaylistsIfNeeded() {
   const timeSet = localStorage.getItem('timeSet');
