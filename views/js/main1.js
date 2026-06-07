@@ -1,23 +1,73 @@
 var download_song='https://aac.saavncdn.com/871/0bed32d7b2c9eb71e4f4d76285e85909_320.mp4';
 import { playTrack,addPlaylistInQueue} from '../js/player.js';
 
-let cnt=0;
 
-let contentArray=[];
-let contentArrayName=[];
 
-let trendingnow;
-let newrelease;
-let bestofromance;
-let bestofdance;
-let punjabisongs;
-let toptamil;
-let toptelugu;
-let krishnasongs;
-let englishsongs;
-let sadsongs;
-let BASE_URL="https://saavnapi-nine.vercel.app/playlist/?query=";
-let SONG_BASE_URL="https://saavnapi-nine.vercel.app/song/?query";
+var cnt=0;
+
+var contentArray=[];
+var contentArrayName=[];
+
+var trendingnow;
+var newrelease;
+var bestofromance;
+var bestofdance;
+var punjabisongs;
+var toptamil;
+var toptelugu;
+var krishnasongs;
+var englishsongs;
+var sadsongs;
+var BASE_URL="https://saavnapi-nine.vercel.app/playlist/?query=";
+var SONG_BASE_URL="https://saavnapi-nine.vercel.app/song/?query";
+
+// Load playlists only if first time or after 3 days
+async function loadPlaylistsIfNeeded() {
+  const timeSet = localStorage.getItem('timeSet');
+  const currentTime = new Date().getTime();
+  const threeDaysInMilliseconds = 3 * 24 * 60 * 60 * 1000;
+  let shouldLoad = false;
+
+  if (!timeSet) {
+    shouldLoad = true;
+    console.log('First time loading - fetching playlists');
+  } else {
+    const storedTime = parseInt(timeSet);
+    const timeDifference = currentTime - storedTime;
+    if (timeDifference > threeDaysInMilliseconds) {
+      shouldLoad = true;
+      console.log('Cache expired (3+ days) - refreshing playlists');
+    } else {
+      // Load from localStorage cache
+      try {
+        const cachedData = localStorage.getItem('playlistsCache');
+        if (cachedData) {
+          const data = JSON.parse(cachedData);
+          trendingnow = data.trendingnow;
+          newrelease = data.newrelease;
+          bestofromance = data.bestofromance;
+          bestofdance = data.bestofdance;
+          punjabisongs = data.punjabisongs;
+          toptamil = data.toptamil;
+          toptelugu = data.toptelugu;
+          krishnasongs = data.krishnasongs;
+          englishsongs = data.englishsongs;
+          sadsongs = data.sadsongs;
+          cnt = 10;
+          console.log('Loaded playlists from cache');
+          return;
+        }
+
+        console.log('No playlist cache found - fetching fresh data');
+        shouldLoad = true;
+      } catch (error) {
+        console.log('Cache load error, fetching fresh data');
+        shouldLoad = true;
+      }
+    }
+  }
+
+  if (shouldLoad) {
     await axios.get(`${BASE_URL}https://www.jiosaavn.com/featured/non-stop-party/FPfWwWPUJ5I_`).then(function (response) {
       console.log(response.data);
       cnt++;
@@ -81,6 +131,19 @@ let SONG_BASE_URL="https://saavnapi-nine.vercel.app/song/?query";
     }).catch(function (error) {
       console.log(error);
     });
+
+    // Cache the data and update timestamp
+    const playlistsData = {
+      trendingnow, newrelease, bestofromance, bestofdance, 
+      punjabisongs, toptamil, toptelugu, krishnasongs, englishsongs, sadsongs
+    };
+    localStorage.setItem('playlistsCache', JSON.stringify(playlistsData));
+    setLocalStorageTime();
+  }
+}
+
+// Call the function to load playlists
+await loadPlaylistsIfNeeded();
 
 
     
